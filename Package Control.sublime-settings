@@ -1,0 +1,23 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"A File Icon",
+		"Babel",
+		"Color Highlight",
+		"Dockerfile Syntax Highlighting",
+		"Dotfiles Syntax Highlighting",
+		"Git blame",
+		"Package Control",
+		"Pretty JSON",
+		"Sass",
+		"SideBarEnhancements",
+		"Solarized Color Scheme",
+		"Terraform",
+		"TOML",
+		"WDL Syntax"
+	]
+}
