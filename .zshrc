@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/lreynoso/.oh-my-zsh"
+export ZSH="/home/lvreynoso/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -69,6 +69,7 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
+plugins+=(zsh-nvm)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,21 +101,35 @@ source $ZSH/oh-my-zsh.sh
 
 alias zshconfig="subl ~/.zshrc"
 
-source "/Users/lreynoso/.secrets"
-source "/Users/lreynoso/.idseqrc"
+source "/home/lvreynoso/.secrets"
+source "/home/lvreynoso/.idseqrc"
 
-export PATH="/Users/lreynoso/bin:$PATH"
-export PATH="/Users/lreynoso/Library/Python/3.7/bin:$PATH"
+## Ubuntu specific
+export PATH=$PATH:~/.local/bin
+export VISUAL=vim
+export EDITOR="$VISUAL"
+# ruby
+source "/etc/profile.d/rvm.sh"
+export GEM_HOME=/home/lvreynoso/.ruby/
+export PATH="$PATH:/home/lvreynoso/.ruby/bin"
+# go
+export PATH=$PATH:/usr/local/go/bin
+
+## Mac OS X specific
+# export PATH="/Users/lreynoso/bin:$PATH"
+# export PATH="/Users/lreynoso/Library/Python/3.7/bin:$PATH"
+# export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
+# export PATH="/usr/local/Cellar/ruby/2.6.5/bin:$PATH"
+# export PATH="/usr/local/opt/ruby/bin:$PATH"
+# export PATH="/usr/local/opt/terraform@0.12/bin:$PATH"
+
+# export npm_config_node_gyp="/usr/local/bin/node-gyp"
 
 alias py="python3"
 alias python="python3"
 alias pip="python3 -m pip"
 alias venv="python3 -m venv .venv"
 alias vactivate="source .venv/bin/activate"
-
-export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
-export PATH="/usr/local/Cellar/ruby/2.6.5/bin:$PATH"
-export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 export GPG_TTY=$(tty)
 
@@ -125,9 +140,6 @@ function gi() { curl -sLw n https://www.gitignore.io/api/$@ ;}
 function squashto() { git reset $(git merge-base $@ $(git rev-parse --abbrev-ref HEAD)) }
 
 PROMPT="%F{magenta}\$AWS_SYMBOL%F{231} ${PROMPT}%F{231}%f"
-export PATH="/usr/local/opt/terraform@0.12/bin:$PATH"
-
-export npm_config_node_gyp="/usr/local/bin/node-gyp"
 
 bindkey "[D" backward-word
 bindkey "[C" forward-word
