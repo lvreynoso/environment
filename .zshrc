@@ -1,9 +1,14 @@
+# Ubuntu:
+# export HOME="/home/lvreynoso"
+
+# Mac OS X:
+export HOME="/Users/lreynoso"
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-# export ZSH="/home/lvreynoso/.oh-my-zsh" # linux
-export ZSH="/Users/lreynoso/.oh-my-zsh" # Mac OS X
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -70,7 +75,7 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
-# plugins+=(zsh-nvm) # linux
+plugins+=(zsh-nvm)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,37 +105,58 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias zshconfig="subl ~/.zshrc"
-
 ## Ubuntu specific
-# source "/home/lvreynoso/.secrets"
-# source "/home/lvreynoso/.idseqrc"
-# export PATH=$PATH:~/.local/bin
-# export VISUAL=vim
-# export EDITOR="$VISUAL"
-# ruby
-# source "/etc/profile.d/rvm.sh"
-# export GEM_HOME=/home/lvreynoso/.ruby/
-# export PATH="$PATH:/home/lvreynoso/.ruby/bin"
 # go
 # export PATH=$PATH:/usr/local/go/bin
 
 ## Mac OS X specific
-source "/Users/lreynoso/.secrets"
-source "/Users/lreynoso/.idseqrc"
-export PATH="/Users/lreynoso/bin:$PATH"
-export PATH="/Users/lreynoso/Library/Python/3.7/bin:$PATH"
-export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
-export PATH="/usr/local/Cellar/ruby/2.6.5/bin:$PATH"
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-export PATH="/usr/local/opt/terraform@0.12/bin:$PATH"
-export npm_config_node_gyp="/usr/local/bin/node-gyp"
+# export PATH="/Users/lreynoso/bin:$PATH"
+# export PATH="/Users/lreynoso/Library/Python/3.7/bin:$PATH"
+# export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
+# export PATH="/usr/local/Cellar/ruby/2.6.5/bin:$PATH"
+# export PATH="/usr/local/opt/ruby/bin:$PATH"
+# export PATH="/usr/local/opt/terraform@0.12/bin:$PATH"
+
+# export npm_config_node_gyp="/usr/local/bin/node-gyp"
+
+# source "/etc/profile.d/rvm.sh" ???
+
+## Cross-platform
+
+alias zshconfig="subl ~/.zshrc"
+export ZSHRC="$HOME/.zshrc"
+
+source "$HOME/.secrets"
+source "$HOME/.biohubrc"
+source "$HOME/.czirc"
+source "$HOME/.gen-epirc"
+# source "$HOME/.idseqrc"
+
+export PATH=$PATH:~/.local/bin
+export PATH=$PATH:~/bin
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+# ruby
+export GEM_HOME=$HOME/.ruby/
+export PATH="$PATH:$HOME/.ruby/bin"
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 alias py="python3"
 alias python="python3"
 alias pip="python3 -m pip"
-alias venv="python3 -m venv .venv"
-alias vactivate="source .venv/bin/activate"
+alias venv="virtualenv venv"
+alias vactivate="source venv/bin/activate"
 
 export GPG_TTY=$(tty)
 
@@ -140,9 +166,16 @@ function gi() { curl -sLw n https://www.gitignore.io/api/$@ ;}
 
 function squashto() { git reset $(git merge-base $@ $(git rev-parse --abbrev-ref HEAD)) }
 
+function copyenv() { cp "$HOME/.zshrc" "$HOME/.zshenv" "$HOME/environment" }
+
 PROMPT="%F{magenta}\$AWS_SYMBOL%F{231} ${PROMPT}%F{231}%f"
 
 bindkey "[D" backward-word
 bindkey "[C" forward-word
 bindkey "^[a" beginning-of-line
 bindkey "^[e" end-of-line
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
